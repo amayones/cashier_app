@@ -25,35 +25,31 @@ $menus = [
 ];
 @endphp
 
-<aside class="w-60 bg-gray-900 flex flex-col shrink-0 h-full">
-    <div class="h-14 flex items-center gap-2.5 px-5 border-b border-white/5 shrink-0">
-        <div class="w-7 h-7 bg-blue-500 rounded-lg flex items-center justify-center shrink-0">
-            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+<aside class="w-56 bg-white border-r border-gray-100 flex flex-col shrink-0 h-full">
+    {{-- Logo --}}
+    <div class="h-14 flex items-center gap-2.5 px-5 shrink-0">
+        <div class="w-7 h-7 bg-indigo-600 rounded-lg flex items-center justify-center shrink-0">
+            <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
             </svg>
         </div>
-        <span class="font-bold text-white text-[15px] tracking-tight">MahoraPOS</span>
+        <span class="font-semibold text-gray-900 text-[15px]">MahoraPOS</span>
     </div>
 
-    <div class="px-4 py-2 border-b border-white/5 shrink-0">
-        <span class="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 font-semibold capitalize">
-            <span class="w-1.5 h-1.5 rounded-full bg-blue-400 inline-block"></span>{{ $role }}
-        </span>
-    </div>
-
-    <nav class="flex-1 overflow-y-auto sb-scroll py-3 px-2">
+    {{-- Nav --}}
+    <nav class="flex-1 overflow-y-auto sb-scroll px-3 py-2">
         @foreach($menus as $section)
             @php $visible = collect($section['items'])->filter(fn($i) => in_array($role, $i['roles'])); @endphp
             @if($visible->isNotEmpty())
                 @if($section['group'])
-                    <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest px-3 pt-4 pb-1.5">{{ $section['group'] }}</p>
+                    <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-widest px-2 pt-5 pb-1.5">{{ $section['group'] }}</p>
                 @endif
                 @foreach($visible as $item)
                     @php $active = request()->is($item['match'].'*'); @endphp
                     <a href="{{ $item['url'] }}"
-                       class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors mb-0.5
-                              {{ $active ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-white/5 hover:text-gray-100' }}">
-                        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                       class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm transition-colors mb-0.5
+                              {{ $active ? 'bg-indigo-50 text-indigo-700 font-medium' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-800' }}">
+                        <svg class="w-4 h-4 shrink-0 {{ $active ? 'text-indigo-600' : 'text-gray-400' }}" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="{{ $item['icon'] }}"/>
                         </svg>
                         {{ $item['label'] }}
@@ -63,11 +59,12 @@ $menus = [
         @endforeach
     </nav>
 
-    <div class="px-4 py-3 border-t border-white/5 flex items-center gap-3 shrink-0">
-        <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-xs font-bold text-white shrink-0">AD</div>
+    {{-- User --}}
+    <div class="px-3 py-3 border-t border-gray-100 flex items-center gap-2.5 shrink-0">
+        <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-xs font-semibold text-white shrink-0">AD</div>
         <div class="min-w-0">
-            <p class="text-sm font-semibold text-gray-200 truncate">Admin Toko</p>
-            <p class="text-xs text-gray-500 truncate">admin@mahora.id</p>
+            <p class="text-sm font-medium text-gray-800 truncate">Admin Toko</p>
+            <p class="text-xs text-gray-400 truncate">admin@mahora.id</p>
         </div>
     </div>
 </aside>
